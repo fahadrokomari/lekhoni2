@@ -1,2 +1,2 @@
 # lekhoni2
-Second version to lekhoni
+Second version of lekhoni
