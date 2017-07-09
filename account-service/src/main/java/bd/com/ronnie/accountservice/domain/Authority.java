@@ -3,7 +3,7 @@ package bd.com.ronnie.accountservice.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "authority")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority {
 
     private static final long serialVersionUID = 1L;

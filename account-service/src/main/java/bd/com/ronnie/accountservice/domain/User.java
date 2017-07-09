@@ -6,7 +6,7 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,13 +26,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity implements Serializable {
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
