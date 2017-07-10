@@ -2,11 +2,10 @@ package bd.com.ronnie.accountservice.domain;
 
 import bd.com.ronnie.accountservice.config.enumvalue.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import javax.persistence.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +13,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -31,60 +31,19 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
-
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-
-    @NotBlank
-    @Size(min = 5, max = 100)
-    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
-
-    @JsonIgnore
-    @NotNull
-    @Size(min = 60, max = 60)
-    @Column(name = "password", nullable = false, length = 60)
     private String password;
-
-    @NotBlank
-    @Size(min = 5, max = 20)
-    @Column(name = "phone", length = 20, nullable = false, unique = true)
     private String phone;
-
-    @NotBlank
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
     private UserStatus status = UserStatus.PENDING;
-
-    @Size(min = 5, max = 255)
-    @Column(name = "avatar", length = 255)
     private String avatar;
-
-    @Size(max = 20)
-    @Column(name = "activation_key", length = 20)
-    @JsonIgnore
     private String activationKey;
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")}
-    )
-    @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -93,6 +52,9 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "first_name", nullable = false, length = 50)
     public String getFirstName() {
         return firstName;
     }
@@ -101,6 +63,9 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "last_name", nullable = false, length = 50)
     public String getLastName() {
         return lastName;
     }
@@ -109,6 +74,10 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
+    @Email
+    @NotBlank
+    @Size(min = 5, max = 100)
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -117,14 +86,22 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @JsonIgnore
+    @NotNull
+    @Size(min = 60, max = 60)
+    @Column(name = "password", nullable = false, length = 60)
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @NotBlank
+    @Size(min = 5, max = 20)
+    @Column(name = "phone", length = 20, nullable = false, unique = true)
     public String getPhone() {
         return phone;
     }
@@ -133,6 +110,9 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     public UserStatus getStatus() {
         return status;
     }
@@ -141,6 +121,8 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    @Size(min = 5, max = 255)
+    @Column(name = "avatar")
     public String getAvatar() {
         return avatar;
     }
@@ -149,6 +131,9 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+    @Size(max = 20)
+    @Column(name = "activation_key", length = 20)
+    @JsonIgnore
     public String getActivationKey() {
         return activationKey;
     }
@@ -157,6 +142,15 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")}
+    )
+
+    @BatchSize(size = 20)
     public Set<Authority> getAuthorities() {
         return authorities;
     }

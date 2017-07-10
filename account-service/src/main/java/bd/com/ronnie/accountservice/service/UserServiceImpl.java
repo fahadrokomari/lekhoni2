@@ -5,10 +5,12 @@ import bd.com.ronnie.accountservice.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,13 +27,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public User findOne(Long id) {
-        return userRepository.findOne(id);
+    public Optional<User> findOneById(Long id) {
+        return userRepository.findOneById(id);
     }
 
     @Override
-    public List<User> findAll() {
-        return (List<User>)userRepository.findAll();
+    @Transactional(readOnly = true)
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.delete(id);
     }
 
 
