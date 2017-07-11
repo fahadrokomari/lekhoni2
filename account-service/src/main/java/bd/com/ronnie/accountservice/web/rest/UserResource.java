@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserResource {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String ENTITY_NAME = "user";
 
@@ -50,6 +51,7 @@ public class UserResource {
         return userService.findOneById(id)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        //return new ResponseEntity<User>(userService.findOneById(id), HttpStatus.OK);
     }
 
     /**
@@ -110,6 +112,7 @@ public class UserResource {
      */
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.debug("REST request to delete an User with ID : {}", id);
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

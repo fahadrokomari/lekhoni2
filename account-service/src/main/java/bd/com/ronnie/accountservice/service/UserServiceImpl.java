@@ -10,13 +10,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final UserRepository userRepository;
 
@@ -30,6 +31,12 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findOneById(Long id) {
         return userRepository.findOneById(id);
     }
+
+    /*@Override
+    @Transactional(readOnly = true)
+    public User findOneById(Long id) {
+        return userRepository.findOneById(id);
+    }*/
 
     @Override
     @Transactional(readOnly = true)

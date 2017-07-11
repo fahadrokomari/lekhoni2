@@ -86,7 +86,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     @NotNull
     @Size(min = 60, max = 60)
     @Column(name = "password", nullable = false, length = 60)
