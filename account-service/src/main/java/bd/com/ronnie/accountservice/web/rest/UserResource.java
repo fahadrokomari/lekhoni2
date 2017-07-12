@@ -25,7 +25,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("users")
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
