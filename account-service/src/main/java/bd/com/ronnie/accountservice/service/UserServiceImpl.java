@@ -32,12 +32,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneById(id);
     }
 
-    /*@Override
-    @Transactional(readOnly = true)
-    public User findOneById(Long id) {
-        return userRepository.findOneById(id);
-    }*/
-
     @Override
     @Transactional(readOnly = true)
     public Page<User> findAll(Pageable pageable) {

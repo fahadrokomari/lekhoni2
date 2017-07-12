@@ -4,18 +4,29 @@ import bd.com.ronnie.accountservice.config.enumvalue.UserStatus;
 import bd.com.ronnie.accountservice.domain.User;
 import bd.com.ronnie.accountservice.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,8 +43,19 @@ public class UserResourceTest {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    /*@Autowired
+    private MockMvc mvc;*/
+
     @Autowired
+    private WebApplicationContext context;
     private MockMvc mvc;
+    @Before
+    public void setup() {
+        mvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .build();
+    }
+
 
     @MockBean
     private UserService userService;
@@ -81,7 +103,17 @@ public class UserResourceTest {
                 .andExpect(status().isNotFound());
     }
 
-    // get user lists
+    // TODO : need to fix the issue with Pageable parameter
+    @Test
+    public void findAll_WhenUsersExist_ShouldReturnUsersList() throws Exception {
+        final User user = createUserWithId();
+        List<User> users = Arrays.asList(user);
+        Page<User> page = new PageImpl<>(users, new PageRequest(0, 10), users.size());
+        when(userService.findAll(any(PageRequest.class)))
+                .thenReturn(page);
+        mvc.perform(get("/api/v1/users").accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+    }
 
     @Test
     public void create_ValidUserPosted_ShouldCreateNewUser() throws Exception {
