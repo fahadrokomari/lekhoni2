@@ -2,10 +2,10 @@ package bd.com.ronnie.accountservice.service;
 
 import bd.com.ronnie.accountservice.domain.User;
 import bd.com.ronnie.accountservice.repository.UserRepository;
+import bd.com.ronnie.accountservice.web.rest.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,9 +29,19 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Override
+    /*@Override
     @Transactional(readOnly = true)
     public Optional<User> findOneById(Long id) {
+        return userRepository.findOneById(id);
+    }*/
+
+    @Override
+    @Transactional(readOnly = true)
+    public User findOneById(Long id) {
+        User user = userRepository.findOneById(id);
+        if(user == null) {
+            throw new ResourceNotFoundException(id, "Resource not found");
+        }
         return userRepository.findOneById(id);
     }
 

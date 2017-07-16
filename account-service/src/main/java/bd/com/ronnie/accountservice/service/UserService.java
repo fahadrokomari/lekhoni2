@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> findOneById(Long id);
+//    Optional<User> findOneById(Long id);
+    User findOneById(Long id);
 
     Page<User> findAll(Pageable pageable);
 
