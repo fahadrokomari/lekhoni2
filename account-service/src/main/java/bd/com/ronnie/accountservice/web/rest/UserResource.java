@@ -25,7 +25,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("users")
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -51,7 +51,6 @@ public class UserResource {
         return userService.findOneById(id)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        //return new ResponseEntity<User>(userService.findOneById(id), HttpStatus.OK);
     }
 
     /**
@@ -105,7 +104,7 @@ public class UserResource {
     }
 
     /**
-     * DELETE /users : delete an user
+     * DELETE /users/:id : delete an user
      *
      * @param id the id of the user to delete
      * @return the ResponseEntity with status 200 (OK)
