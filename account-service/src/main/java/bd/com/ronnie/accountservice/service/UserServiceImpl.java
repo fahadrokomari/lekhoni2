@@ -5,12 +5,15 @@ import bd.com.ronnie.accountservice.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,12 +34,6 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findOneById(Long id) {
         return userRepository.findOneById(id);
     }
-
-    /*@Override
-    @Transactional(readOnly = true)
-    public User findOneById(Long id) {
-        return userRepository.findOneById(id);
-    }*/
 
     @Override
     @Transactional(readOnly = true)
