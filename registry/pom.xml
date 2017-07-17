@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>bd.com.ronnie</groupId>
-	<artifactId>register</artifactId>
+	<artifactId>registry</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>register</name>
-	<description>Register project for Lekhoni2</description>
+	<name>registry</name>
+	<description>Registry application for Lekhoni2</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -33,7 +33,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -61,6 +60,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

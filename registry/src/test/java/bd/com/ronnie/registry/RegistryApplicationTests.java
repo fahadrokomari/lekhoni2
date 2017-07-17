@@ -1,4 +1,4 @@
-package bd.com.ronnie.register;
+package bd.com.ronnie.registry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RegisterApplicationTests {
+public class RegistryApplicationTests {
 
 	@Test
 	public void contextLoads() {
