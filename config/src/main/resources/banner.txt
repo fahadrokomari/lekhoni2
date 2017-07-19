@@ -4,4 +4,4 @@
  | (_| (_) | .` | (_ || || _|
   \___\___/|_|\_|\___|___|_|
 
-:: Lekhoni2 - Account-Service application with Spring Boot ${spring-boot.version} ::
+:: Developed with Spring Boot ${spring-boot.version} ::
