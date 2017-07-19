@@ -35,7 +35,6 @@ public class UserRepositoryTest {
     private static final String DEFAULT_EMAIL = "test@test.com";
     private static final String DEFAULT_FIRSTNAME = "john";
     private static final String DEFAULT_LASTNAME = "doe";
-    private static final String DEFAULT_PASSWORD = "ABCDEFGHJIABCDEFGHJIABCDEFGHJIABCDEFGHJIABCDEFGHJIABCDEFGHJI";
     private static final UserStatus DEFAULT_STATUS = UserStatus.ACTIVE;
     private static final String DEFAULT_PHONE = "12345679";
 
@@ -44,7 +43,6 @@ public class UserRepositoryTest {
         user.setEmail(DEFAULT_EMAIL);
         user.setFirstName(DEFAULT_FIRSTNAME);
         user.setLastName(DEFAULT_LASTNAME);
-        user.setPassword(DEFAULT_PASSWORD);
         user.setStatus(DEFAULT_STATUS);
         user.setPhone(DEFAULT_PHONE);
         return user;

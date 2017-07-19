@@ -45,14 +45,6 @@ public class UserResource {
      * @param id the id of the user to retrieve
      * @return the ResponseEntity with status 200 (OK) and with user in the body, or with status 404 (Not Found)
      */
-    /*@GetMapping("{id}")
-    public ResponseEntity<User> findOne(@PathVariable Long id) {
-        log.debug("REST request to get User : {}", id);
-        return userService.findOneById(id)
-                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }*/
-
     @GetMapping("{id}")
     public ResponseEntity<User> findOne(@PathVariable Long id) {
         log.debug("REST request to get User : {}", id);

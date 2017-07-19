@@ -4,11 +4,8 @@ import bd.com.ronnie.accountservice.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 public interface UserService {
 
-//    Optional<User> findOneById(Long id);
     User findOneById(Long id);
 
     Page<User> findAll(Pageable pageable);

@@ -9,12 +9,11 @@
 	<name>lekhoni2</name>
 
 	<modules>
-		<module>config</module>
 		<module>account-service</module>
+        <module>auth-service</module>
         <module>config</module>
         <module>gateway</module>
         <module>registry</module>
-        <module>test</module>
 	</modules>
 
 </project>

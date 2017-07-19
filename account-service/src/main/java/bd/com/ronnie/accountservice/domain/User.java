@@ -35,7 +35,6 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String phone;
     private UserStatus status = UserStatus.PENDING;
     private String avatar;
@@ -84,19 +83,6 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    //@JsonIgnore
-    @NotNull
-    @Size(min = 60, max = 60)
-    @Column(name = "password", nullable = false, length = 60)
-    public String getPassword() {
-        return password;
-    }
-
-    @JsonProperty
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @NotBlank
