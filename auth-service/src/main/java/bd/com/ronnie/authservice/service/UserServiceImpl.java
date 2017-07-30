@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.invoke.MethodHandles;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,5 +28,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(User user) {
         // TODO : implement needed
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

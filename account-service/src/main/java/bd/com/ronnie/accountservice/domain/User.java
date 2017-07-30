@@ -2,7 +2,6 @@ package bd.com.ronnie.accountservice.domain;
 
 import bd.com.ronnie.accountservice.config.enumvalue.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -39,7 +38,6 @@ public class User implements Serializable {
     private UserStatus status = UserStatus.PENDING;
     private String avatar;
     private String activationKey;
-    private Set<Authority> authorities = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -128,20 +126,4 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")}
-    )
-
-    @BatchSize(size = 20)
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
 }
