@@ -1,5 +1,6 @@
 package bd.com.ronnie.authservice.domain;
 
+import bd.com.ronnie.authservice.config.enumvalue.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
@@ -8,11 +9,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -28,7 +32,10 @@ public class User implements Serializable {
     private Long id;
     private String email;
     private String password;
+    private UserStatus status = UserStatus.PENDING;
     private Set<Authority> authorities = new HashSet<>();
+
+    private boolean isActivated;
 
     @Id
     public Long getId() {
@@ -63,6 +70,17 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -72,6 +90,11 @@ public class User implements Serializable {
     @BatchSize(size = 20)
     public Set<Authority> getAuthorities() {
         return authorities;
+    }
+
+    @Transient
+    public boolean getIsActivated() {
+        return this.getStatus().equals(UserStatus.ACTIVE);
     }
 
     public void setAuthorities(Set<Authority> authorities) {
