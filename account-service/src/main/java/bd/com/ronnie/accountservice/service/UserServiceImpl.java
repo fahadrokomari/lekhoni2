@@ -28,12 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public User findOneById(Long id) {
-        User user = userRepository.findOneById(id);
+    public User findOne(Long id) {
+        User user = userRepository.findOne(id);
         if(user == null) {
             throw new ResourceNotFoundException(id, "Resource not found");
         }
-        return userRepository.findOneById(id);
+        return user;
     }
 
     @Override

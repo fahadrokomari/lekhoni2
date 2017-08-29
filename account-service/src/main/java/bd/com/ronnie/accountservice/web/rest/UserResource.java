@@ -48,7 +48,7 @@ public class UserResource {
     @GetMapping("{id}")
     public ResponseEntity<User> findOne(@PathVariable Long id) {
         log.debug("REST request to get User : {}", id);
-        User user = userService.findOneById(id);
+        User user = userService.findOne(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

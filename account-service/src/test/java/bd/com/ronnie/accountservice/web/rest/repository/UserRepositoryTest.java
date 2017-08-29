@@ -24,7 +24,7 @@ public class UserRepositoryTest {
     public void findOneById_() {
         User user = createUserWithOutId();
         entityManager.persist(user);
-        //Optional<User> user1 = userRepository.findOneById(1L);
+        //Optional<User> user1 = userRepository.findOne(1L);
         User user1 = userRepository.findOneById(1L);
     }
 

@@ -69,7 +69,7 @@ public class UserResourceTest {
     @Test
     public void findOne_UserExists_ShouldGetUser() throws Exception {
         final User user = createUserWithId();
-        when(userService.findOneById(1L))
+        when(userService.findOne(1L))
                 .thenReturn(user);
         mvc.perform(get("/users/1").accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class UserResourceTest {
     // TODO : fix this test failing issue
     @Test
     public void findOne_UserNotExists_ShouldGetNotFoundStatus() throws Exception {
-        when(userService.findOneById(2L))
+        when(userService.findOne(2L))
                 .thenReturn(null);
         mvc.perform(get("/users/2").accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isNotFound());

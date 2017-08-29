@@ -32,18 +32,21 @@ public class DomainUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
         log.debug("Authenticating {}", login);
-        String lowerCaseLogin = login.toLowerCase(Locale.ENGLISH);
-        Optional<User> userOptional = userRepository.findByEmail(lowerCaseLogin);
-        return userOptional.map(user -> {
-                    if(!user.getIsActivated()) {
-                        return new UserNotActivatedException("User " + lowerCaseLogin + " is not activated");
+        String loginLowerCase = login.toLowerCase(Locale.ENGLISH);
+        Optional<User> userOptional = userRepository.findByEmail(loginLowerCase);
+
+        return userOptional.map(
+                user -> {
+                    if (!user.getIsActivated()) {
+                        throw new UserNotActivatedException("User " + loginLowerCase + " is not yet activated.");
                     } else {
                         List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                                 .collect(Collectors.toList());
-                        return new org.springframework.security.core.userdetails.User(lowerCaseLogin, user.getPassword(), grantedAuthorities);
+                        return new org.springframework.security.core.userdetails.User(loginLowerCase, user.getPassword(), grantedAuthorities);
                     }
                 }
-        ).orElseThrow(() -> new RuntimeException());
+        ).orElseThrow(() -> new UsernameNotFoundException("User " + loginLowerCase + " was not found in database."));
+
     }
 }
