@@ -1,6 +1,5 @@
 package bd.com.ronnie.accountservice.web.rest.repository;
 
-import bd.com.ronnie.accountservice.config.enumvalue.UserStatus;
 import bd.com.ronnie.accountservice.domain.User;
 import bd.com.ronnie.accountservice.repository.UserRepository;
 import org.junit.Test;
@@ -25,14 +24,14 @@ public class UserRepositoryTest {
         User user = createUserWithOutId();
         entityManager.persist(user);
         //Optional<User> user1 = userRepository.findOne(1L);
-        User user1 = userRepository.findOneById(1L);
+        User user1 = userRepository.findOne(1L);
     }
 
     private static final Long DEFAULT_ID = 1L;
     private static final String DEFAULT_EMAIL = "test@test.com";
     private static final String DEFAULT_FIRSTNAME = "john";
     private static final String DEFAULT_LASTNAME = "doe";
-    private static final UserStatus DEFAULT_STATUS = UserStatus.ACTIVE;
+    //private static final UserStatus DEFAULT_STATUS = UserStatus.ACTIVE;
     private static final String DEFAULT_PHONE = "12345679";
 
     public static User createUserWithOutId() {
@@ -40,7 +39,7 @@ public class UserRepositoryTest {
         user.setEmail(DEFAULT_EMAIL);
         user.setFirstName(DEFAULT_FIRSTNAME);
         user.setLastName(DEFAULT_LASTNAME);
-        user.setStatus(DEFAULT_STATUS);
+        //user.setStatus(DEFAULT_STATUS);
         user.setPhone(DEFAULT_PHONE);
         return user;
     }
