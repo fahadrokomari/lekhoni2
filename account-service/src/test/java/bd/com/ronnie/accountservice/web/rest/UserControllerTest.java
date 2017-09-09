@@ -31,8 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Unit testing for UserResource
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(UserResource.class)
-public class UserResourceTest {
+@WebMvcTest(UserController.class)
+public class UserControllerTest {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 

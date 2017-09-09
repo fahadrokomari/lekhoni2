@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,9 +23,12 @@ public class Comment {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+    private Long postId;
     private String title;
     private String content;
     private CommentStatus status;
+
+    private Post post;
 
     @Id
     @NotNull
@@ -35,6 +40,16 @@ public class Comment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @NotNull
+    @Column(name = "post_id", insertable = false, updatable = false)
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     @NotBlank
@@ -68,5 +83,15 @@ public class Comment {
 
     public void setStatus(CommentStatus status) {
         this.status = status;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
