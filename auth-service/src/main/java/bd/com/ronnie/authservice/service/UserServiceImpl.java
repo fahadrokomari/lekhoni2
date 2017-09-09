@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
@@ -27,7 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user) {
-        // TODO : implement needed
+        User existing = userRepository.findOne(user.getId());
+        Assert.isNull(existing, "user already exists: " + user.getEmail());
+
+        String hash = encoder.encode(user.getPassword());
+        user.setPassword(hash);
+        userRepository.save(user);
     }
 
     @Override
