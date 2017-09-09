@@ -2,7 +2,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>bd.com.ronnie</groupId>
+	<groupId>bd.com.ronnie.lekhoni2</groupId>
 	<artifactId>lekhoni2</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -11,6 +11,7 @@
 	<modules>
 		<module>account-service</module>
         <module>auth-service</module>
+        <module>blog-service</module>
         <module>config</module>
         <module>gateway</module>
         <module>registry</module>
